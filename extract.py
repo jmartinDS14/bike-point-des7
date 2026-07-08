@@ -32,11 +32,18 @@ while attempt < max_retry:
     status = response.status_code
     if 200 <= status < 300:
         data = response.json()
-        with open(filename,'w') as file:
-            json.dump(data,file)
-        print('yay 🎉')
-        logger.info(f'File {filename} was successfully saved')
-        break
+        if len(data) > 0:
+            try:
+                with open(filename,'w') as file:
+                    json.dump(data,file)
+                print('yay 🎉')
+                logger.info(f'File {filename} was successfully saved')
+            except Exception as e:
+                logger.error(f'An error occurred: {e}')
+            break
+        else:
+            logger.error('No data returned')
+            break
     elif status<=100 or status>=500:
         time.sleep(delay)
         print('retrying')
