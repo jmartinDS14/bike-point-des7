@@ -3,9 +3,13 @@ from dotenv import load_dotenv
 import os
 from modules.extract_function import extract_to_json
 from modules.load_function import load_to_s3
+from modules.logging_function import setup_logger
 
 timestamp = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
 log_dir = 'logs'
+
+logger = setup_logger(timestamp,log_dir)
+logger.info('Logger initialised')
 
 url = 'https://api.tfl.gov.uk/BikePoint/'
 data_dir = 'data'
