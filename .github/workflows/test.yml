@@ -1,6 +1,6 @@
 name: Schedule Test
 
-on:
+"on":
   push:
   schedule:
     - cron: "57 * * * *"
